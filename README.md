@@ -63,6 +63,12 @@ You can specify transit mode, and what to avoid during route planning.
 ### Write your own parser!
 Yeah! That's possible! Just implement **Converter<GeocodedResponse?, List<PolylineOptions>>** and you are ready to go!
 
+```kotlin
+directionsApiClient = DirectionsApiClient(
+    apiKey = getString(R.string.google_directions_key),
+    polylineConverter = myConverter)
+```
+
 ### I still don't know hot to use it
 Look at example in this repo, in **app** directory.
 
