@@ -15,12 +15,12 @@ consider using it if you don't want to parse nested jsons by yourself.
 That's simple. First - add dependency to your build.gradle:
 
 ```groovy
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
 
 ```groovy
