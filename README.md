@@ -64,9 +64,19 @@ You can specify transit mode, and what to avoid during route planning.
 Yeah! That's possible! Just implement **Converter<GeocodedResponse?, List<PolylineOptions>>** and you are ready to go!
 
 ```kotlin
-directionsApiClient = DirectionsApiClient(
-    apiKey = getString(R.string.google_directions_key),
-    polylineConverter = myConverter)
+class AnotherBoringMapActivity : Activity(){
+    fun configure(){
+        val myConverter = object : Converter<GeocodedResponse?, List<PolylineOptions>> {
+                override fun convert(from: GeocodedResponse?): List<PolylineOptions> {
+                    //
+                }
+            }
+            
+        val directionsApiClient = DirectionsApiClient(
+            apiKey = getString(R.string.google_directions_key),
+            polylineConverter = myConverter)
+    }
+}
 ```
 
 ### I still don't know hot to use it
