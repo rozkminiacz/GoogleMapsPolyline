@@ -53,10 +53,33 @@ class DirectionsApiClient(
 
         launch {
             status(STATE.LOADING, STATUS.NONE)
-            val data = googleMapsApi.getGeocodeDirectionsResponse(getUrl(origin, dest, options)).awaitResponse()
+            val response = googleMapsApi.getGeocodeDirectionsResponse(getUrl(origin, dest, options)).awaitResponse()
 
-            if (data.isSuccessful) {
-                polylines(polylineConverter.convert(data.body()))
+            if (response.isSuccessful) {
+                polylines(polylineConverter.convert(response.body()))
+                status(STATE.END, STATUS.SUCCESS)
+            } else {
+                status(STATE.END, STATUS.ERROR)
+            }
+        }
+    }
+
+    fun getDirectionSuggestions(
+            origin: LatLng, dest: LatLng,
+            options: TransitOptions = TransitOptions(),
+            status: (STATE, STATUS) -> Unit = { _, _ -> },
+            directions: (GeocodedResponse) -> Unit
+    ){
+        status(STATE.START, STATUS.NONE)
+
+        launch {
+            status(STATE.LOADING, STATUS.NONE)
+            val response = googleMapsApi.getGeocodeDirectionsResponse(getUrl(origin, dest, options)).awaitResponse()
+
+            if (response.isSuccessful) {
+                response.body()?.apply {
+                    directions.invoke(this)
+                }
                 status(STATE.END, STATUS.SUCCESS)
             } else {
                 status(STATE.END, STATUS.ERROR)
