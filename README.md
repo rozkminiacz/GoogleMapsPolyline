@@ -1,5 +1,7 @@
 # Google Maps Directions API - polyline drawer helper
 
+*this is couroutines implementation, for RX see* https://github.com/rozkminiacz/DirectionsSDK
+
 ## What is it?
 It's small library written in Kotlin to utilize Google Directions API calls
 and convert response to PolylineOptions, ready to add to GoogleMap.
